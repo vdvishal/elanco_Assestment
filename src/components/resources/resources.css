@@ -1,0 +1,17 @@
+.resourcelistsection{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.card-grid-custom{
+    display: flex!important;
+    width: 250px!important;
+    text-align: center!important;
+    padding: 10px!important;
+    border: 1px solid #E6F4FF!important;
+    margin: 1px!important;
+    justify-content: center;
+    vertical-align: center;
+}
+ 

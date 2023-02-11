@@ -1,0 +1,25 @@
+.header {
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.sidebar {
+    background: #fff;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.main-content {
+    background: #fff;
+    padding: 20px;
+    /* margin-left: 200px; */
+    margin-top: 60px;
+    overflow-y: auto;
+}
