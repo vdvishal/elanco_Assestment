@@ -47,7 +47,7 @@ const ResourcesTable = (props: any) => {
 
 	const columns2: ColumnsType<IApplicationSummary> = [
 		{
-			title: "Category",
+			title: "Resource",
 			dataIndex: "ServiceName",
 			key: "ServiceName",
 			// render: (text) => <a onClick={(e) => handleMenuClick(text)}>{text}</a>,
