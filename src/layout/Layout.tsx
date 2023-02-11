@@ -5,6 +5,8 @@ import { ReactNode } from "react";
 import { Routes, Route } from "react-router-dom";
 import Applications from "../components/applications";
 import Resources from "../components/resources";
+import ApplicationTable from "../components/resources/applicationTable";
+import InstanceTable from "../components/resources/instanceTable";
 import "./index.css";
 import SideBarMenu from "./SidebarMenu";
 
@@ -21,8 +23,15 @@ const AppLayout = (props: any) => {
 					<Content className="main-content">
 						{/* <Home /> */}
 						<Routes>
-							<Route path="/applications" element={<Applications />} />
-							<Route path="/" element={<Resources />} />
+							<Route
+								path="/resources/:resource"
+								element={<ApplicationTable />}
+							/>
+							<Route
+								path="/resources/:resource/:app"
+								element={<InstanceTable />}
+							/>
+							<Route path="/resources" element={<Resources />} />
 						</Routes>
 					</Content>
 				</Layout>

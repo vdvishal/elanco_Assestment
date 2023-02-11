@@ -1,34 +1,28 @@
 import { Card, Row } from "antd";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CONSTANTS from "../../utils/CONSTANTS";
 import "./resources.css";
 
-let list = [
-	"Logic Apps",
-	"Azure App Service",
-	"Storage",
-	"Virtual Machines",
-	"Virtual Machines Licenses",
-	"Virtual Network",
-	"Log Analytics",
-	"Advanced Threat Protection",
-	"Bandwidth",
-	"Key Vault",
-	"Azure Cosmos DB",
-	"Redis Cache",
-	"Container Registry",
-	"Azure Database for PostgreSQL",
-	"Azure Data Factory v2",
-	"Security Center",
-	"Insight and Analytics",
-	"Advanced Data Security",
-	"Azure DNS",
-	"Azure Front Door Service",
-	"Network Watcher",
-	"Azure Cognitive Search",
-	"API Management",
-	"Power BI Embedded",
-];
-
 const ResourcesList = () => {
+	let navigate = useNavigate();
+
+	let [resources, setResources] = useState<string[]>([]);
+
+	const handleMenuClick = (key: string) => {
+		navigate(key);
+	};
+
+	useEffect(() => {
+		axios
+			.get(CONSTANTS.URL.baseUrl + CONSTANTS.URL.resources)
+			.then((resources: AxiosResponse) => {
+				resources.data.sort();
+				setResources(resources.data);
+			});
+	}, []);
+
 	return (
 		<>
 			<div className="resourcelistsection">
@@ -40,9 +34,14 @@ const ResourcesList = () => {
 						flexDirection: "column",
 					}}
 				>
-					{list.map((name) => {
+					{resources.map((name) => {
 						return (
-							<Card.Grid hoverable className="card-grid-custom">
+							<Card.Grid
+								hoverable
+								className="card-grid-custom"
+								key={name}
+								onClick={(e) => handleMenuClick(name)}
+							>
 								{name}
 							</Card.Grid>
 						);

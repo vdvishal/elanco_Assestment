@@ -37,7 +37,38 @@ const getResourceSummary = (list: IApplication[]) => {
 		resourceSummary.push(newList[object]);
 	}
 
+	resourceSummary.sort((a, b) => a.appName.localeCompare(b.appName));
+
 	return resourceSummary;
 };
 
-export { dataExtractor, getResourceSummary };
+const getUniqueSelection = (list: IApplication[]) => {
+	const environment = new Set();
+	const apps = new Set();
+	const location = new Set();
+	for (let i = 0; i < list.length; i++) {
+		let data: IApplication = list[i];
+		let appName: string = data.Tags["app-name"];
+
+		apps.add(appName);
+		location.add(data.Location);
+		environment.add(data.Tags.environment);
+	}
+
+	return {
+		apps: {
+			label: "Apps",
+			values: Array.from(apps),
+		},
+		location: {
+			label: "Location",
+			values: Array.from(location),
+		},
+		environment: {
+			label: "Environment",
+			values: Array.from(environment),
+		},
+	};
+};
+
+export { dataExtractor, getResourceSummary, getUniqueSelection };

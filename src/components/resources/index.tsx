@@ -5,7 +5,7 @@ const Resources = () => {
 	return (
 		<>
 			<ResourcesList />
-			<ApplicationTable />
+			{/* <ApplicationTable /> */}
 		</>
 	);
 };
