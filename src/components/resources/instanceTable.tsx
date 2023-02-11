@@ -89,19 +89,18 @@ const InstanceTable = (props: any) => {
 			title: "Instance Id",
 			dataIndex: "InstanceId",
 			key: "InstanceId",
-			render: (text) => <a>{text}</a>,
 		},
 		{
 			title: "App Name",
 			dataIndex: "Tags",
 			key: "Tags",
-			render: (Tags) => <a>{Tags["app-name"]}</a>,
+			render: (Tags) => <span>{Tags["app-name"]}</span>,
 		},
 		{
 			title: "Environment",
 			dataIndex: "Tags",
 			key: "environment",
-			render: (Tags) => <a>{Tags["environment"]}</a>,
+			render: (Tags) => <span>{Tags["environment"]}</span>,
 		},
 		{
 			title: "Resource",
@@ -213,7 +212,7 @@ const InstanceTable = (props: any) => {
 				}}
 			>
 				<div style={{ fontSize: "large", fontWeight: "bolder" }}>
-					{resource} Applications Detail
+					{resource} Resource Usage
 				</div>
 				<div
 					style={{

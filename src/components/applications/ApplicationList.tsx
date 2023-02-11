@@ -1,59 +1,28 @@
 import { Card, Row } from "antd";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CONSTANTS from "../../utils/CONSTANTS";
 import "./applicationList.css";
 
-let list = [
-	"Macao",
-	"Delaware-deposit-Plastic",
-	"index-Consultant-blue",
-	"Integrated-SDD",
-	"Accountability-Clothing",
-	"Philippines-THX",
-	"info-mediaries",
-	"AI-Administrator-capability",
-	"firewall-Towels-compressing",
-	"Officer",
-	"Triple-buffered-Brand",
-	"program-compelling",
-	"Corporate-Electronics",
-	"Multi-tiered",
-	"global-Rustic",
-	"Cambridgeshire-next-Springs",
-	"Bike-Hawaii-Naira",
-	"Health",
-	"seamless-Arkansas-payment",
-	"Markets-payment-Shoes",
-	"Solutions",
-	"Industrial",
-	"Locks-integrated",
-	"EXE",
-	"redundant-copy-action-items",
-	"Regional-Table",
-	"Licensed-Account-paradigms",
-	"auxiliary-Granite",
-	"calculating",
-	"zero",
-	"markets-reboot-Avon",
-	"Account-Pizza-cross-media",
-	"Computers",
-	"Granite",
-	"Computers-Fresh",
-	"User-centric",
-	"Palau-redundant-solution-oriented",
-	"Dakota-Future-proofed-SCSI",
-	"Maine-Avon",
-	"Loti",
-	"Wooden-Health",
-	"Table-Flats-Electronics",
-	"Territory-e-markets",
-	"forecast-Games",
-	"Gloves",
-	"red-Facilitator",
-	"1080p-Lock",
-	"mobile-transmit",
-	"interface-deliver",
-];
-
 const ApplicationList = () => {
+	let navigate = useNavigate();
+
+	let [resources, setResources] = useState<string[]>([]);
+
+	const handleMenuClick = (key: string) => {
+		navigate(key);
+	};
+
+	useEffect(() => {
+		axios
+			.get(CONSTANTS.URL.baseUrl + CONSTANTS.URL.applications)
+			.then((resources: AxiosResponse) => {
+				resources.data.sort();
+				setResources(resources.data);
+			});
+	}, []);
+
 	return (
 		<>
 			<div className="resourcelistsection">
@@ -65,9 +34,13 @@ const ApplicationList = () => {
 						flexDirection: "column",
 					}}
 				>
-					{list.map((name) => {
+					{resources.map((name: any) => {
 						return (
-							<Card.Grid hoverable className="card-grid-custom">
+							<Card.Grid
+								hoverable
+								className="card-grid-custom"
+								onClick={(e) => handleMenuClick(name)}
+							>
 								{name}
 							</Card.Grid>
 						);

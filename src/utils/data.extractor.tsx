@@ -71,4 +71,45 @@ const getUniqueSelection = (list: IApplication[]) => {
 	};
 };
 
-export { dataExtractor, getResourceSummary, getUniqueSelection };
+const getApplicationSummary = (list: IApplication[]) => {
+	const instance = new Set();
+	let newList: IApplicationSummaryHelper = {};
+
+	for (let i = 0; i < list.length; i++) {
+		let data: IApplication = list[i];
+		let appName: string = data.ServiceName;
+		if (newList[appName] && newList[appName]["location"] == data["Location"]) {
+			instance.add(data.InstanceId);
+			newList[appName]["Cost"] += parseFloat(data.Cost);
+			newList[appName]["instanceCount"] = instance.size;
+		} else {
+			newList[appName] = {
+				Cost: 0,
+				instanceCount: 0,
+				appName: data.Tags["app-name"],
+				location: data.Location,
+				ServiceName: data.ServiceName,
+			};
+			instance.add(data.InstanceId);
+			newList[appName]["Cost"] += parseFloat(data.Cost);
+			newList[appName]["instanceCount"] = instance.size;
+		}
+	}
+
+	let resourceSummary: IApplicationSummary[] = [];
+
+	for (let object in newList) {
+		resourceSummary.push(newList[object]);
+	}
+
+	resourceSummary.sort((a, b) => a.ServiceName.localeCompare(b.ServiceName));
+
+	return resourceSummary;
+};
+
+export {
+	dataExtractor,
+	getResourceSummary,
+	getUniqueSelection,
+	getApplicationSummary,
+};
